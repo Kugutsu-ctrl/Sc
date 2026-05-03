@@ -3,600 +3,638 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vault Pro - Lubiz Otoritas Ecosystem</title>
+    <title>Vault Pro - Otoritas Ekosistem</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        
-        :root {
-            --primary: #6366f1;
-            --accent: #8b5cf6;
-            --verified: #3b82f6;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f8fafc;
-            color: #0f172a;
-            overflow-x: hidden;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-
-        .hero-bg {
-            background: radial-gradient(circle at 0% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 40%),
-                        radial-gradient(circle at 100% 100%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
-        }
-
-        .animate-slide-up {
-            animation: slideUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #030712; color: #f1f5f9; overflow-x: hidden; transition: background-color 0.3s, color 0.3s; }
         .hidden-view { display: none !important; }
-
-        .auth-gradient {
-            background: linear-gradient(135deg, #0f172a 0%, #4338ca 100%);
-        }
-
-        .verified-badge {
-            color: var(--verified);
-            fill: rgba(59, 130, 246, 0.2);
-        }
-
-        .creator-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
-        
-        .loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid var(--primary);
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #334155; }
+        .animate-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade-in { animation: fadeIn 0.4s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scroll-up { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+        .animate-code-scroll { animation: scroll-up 40s linear infinite; }
+        .loader { border: 3px solid rgba(255,255,255,0.2); border-top: 3px solid #fff; border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; display: inline-block; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* THEME ENGINE CSS */
+        body[data-font="fira"] * { font-family: 'Fira Code', monospace !important; }
+        body[data-font="quicksand"] * { font-family: 'Quicksand', sans-serif !important; }
+
+        body[data-theme="light"] { background-color: #f8fafc !important; color: #0f172a !important; }
+        body[data-theme="light"] .bg-\[\#030712\], body[data-theme="light"] .bg-\[\#09090b\], body[data-theme="light"] .bg-\[\#09090b\]\/80, body[data-theme="light"] .bg-\[\#09090b\]\/95 { background-color: #f8fafc !important; }
+        body[data-theme="light"] .bg-\[\#0f1115\] { background-color: #ffffff !important; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05) !important; border: 1px solid #e2e8f0 !important; }
+        body[data-theme="light"] .bg-slate-800, body[data-theme="light"] .bg-slate-900, body[data-theme="light"] .bg-slate-900\/50, body[data-theme="light"] .bg-slate-900\/80 { background-color: #f1f5f9 !important; border-color: #e2e8f0 !important; }
+        body[data-theme="light"] .border-slate-800\/60, body[data-theme="light"] .border-slate-800, body[data-theme="light"] .border-slate-700 { border-color: #cbd5e1 !important; }
+        body[data-theme="light"] .text-white { color: #0f172a !important; }
+        body[data-theme="light"] .text-slate-400, body[data-theme="light"] .text-slate-300 { color: #475569 !important; }
+        body[data-theme="light"] .text-slate-500 { color: #64748b !important; }
+        body[data-theme="light"] .bg-white { background-color: #0f172a !important; color: #ffffff !important; }
+        body[data-theme="light"] .bg-indigo-500\/10 { background-color: #e0e7ff !important; }
+        body[data-theme="light"] .bg-cyan-500\/10 { background-color: #cffafe !important; }
+
+        body[data-theme="hacker"] { background-color: #000 !important; color: #0f0 !important; }
+        body[data-theme="hacker"] * { font-family: 'Fira Code', 'Courier New', monospace !important; border-radius: 0 !important; }
+        body[data-theme="hacker"] .bg-\[\#030712\], body[data-theme="hacker"] .bg-\[\#09090b\], body[data-theme="hacker"] .bg-\[\#09090b\]\/80, body[data-theme="hacker"] .bg-\[\#09090b\]\/95, body[data-theme="hacker"] .bg-\[\#0f1115\] { background-color: #000 !important; }
+        body[data-theme="hacker"] .bg-slate-800, body[data-theme="hacker"] .bg-slate-900, body[data-theme="hacker"] .bg-slate-900\/50, body[data-theme="hacker"] .bg-slate-900\/80 { background-color: #051005 !important; border-color: #0f0 !important; }
+        body[data-theme="hacker"] .border-slate-800\/60, body[data-theme="hacker"] .border-slate-800, body[data-theme="hacker"] .border-slate-700 { border-color: #0f0 !important; }
+        body[data-theme="hacker"] .text-white, body[data-theme="hacker"] .text-slate-400, body[data-theme="hacker"] .text-slate-300, body[data-theme="hacker"] .text-slate-500, body[data-theme="hacker"] .text-indigo-400, body[data-theme="hacker"] .text-cyan-400 { color: #0f0 !important; }
+        body[data-theme="hacker"] .bg-indigo-500, body[data-theme="hacker"] .bg-cyan-500, body[data-theme="hacker"] .bg-white { background-color: #0f0 !important; color: #000 !important; border: none !important; }
+        body[data-theme="hacker"] .bg-indigo-500\/10, body[data-theme="hacker"] .bg-cyan-500\/20 { background-color: rgba(0, 255, 0, 0.1) !important; border: 1px solid #0f0 !important; }
+        body[data-theme="hacker"] .animate-pulse { background-color: rgba(0, 255, 0, 0.05) !important; }
+        body[data-theme="hacker"] img { filter: grayscale(100%) contrast(1.2) !important; }
+
+        body[data-theme="anime"] { background-color: #fdf2f8 !important; color: #831843 !important; }
+        body[data-theme="anime"] .bg-\[\#030712\], body[data-theme="anime"] .bg-\[\#09090b\], body[data-theme="anime"] .bg-\[\#09090b\]\/80, body[data-theme="anime"] .bg-\[\#09090b\]\/95 { background-color: #fdf2f8 !important; }
+        body[data-theme="anime"] .bg-\[\#0f1115\] { background-color: #ffffff !important; box-shadow: 0 10px 15px -3px rgba(236, 72, 153, 0.1) !important; border: 2px solid #fbcfe8 !important; }
+        body[data-theme="anime"] .bg-slate-800, body[data-theme="anime"] .bg-slate-900, body[data-theme="anime"] .bg-slate-900\/50, body[data-theme="anime"] .bg-slate-900\/80 { background-color: #fce7f3 !important; border-color: #fbcfe8 !important; }
+        body[data-theme="anime"] .border-slate-800\/60, body[data-theme="anime"] .border-slate-800, body[data-theme="anime"] .border-slate-700 { border-color: #fbcfe8 !important; }
+        body[data-theme="anime"] .text-white { color: #831843 !important; }
+        body[data-theme="anime"] .text-slate-400, body[data-theme="anime"] .text-slate-300 { color: #be185d !important; }
+        body[data-theme="anime"] .text-slate-500 { color: #db2777 !important; }
+        body[data-theme="anime"] .bg-indigo-500, body[data-theme="anime"] .bg-cyan-500 { background-color: #f472b6 !important; color: #fff !important; box-shadow: 0 4px 14px rgba(244,114,182,0.4) !important;}
+        body[data-theme="anime"] .text-indigo-400, body[data-theme="anime"] .text-cyan-400 { color: #ec4899 !important; }
+        body[data-theme="anime"] .bg-indigo-500\/10, body[data-theme="anime"] .bg-cyan-500\/20 { background-color: #fbcfe8 !important; }
+        body[data-theme="anime"] .bg-white { background-color: #be185d !important; color: #ffffff !important; }
+        body[data-theme="anime"] .animate-pulse { background-color: rgba(244, 114, 182, 0.2) !important; }
+        body[data-theme="anime"] * { border-radius: 1.5rem !important; }
     </style>
 </head>
-<body class="hero-bg min-h-screen">
+<body class="selection:bg-indigo-500/30 h-[100dvh] overflow-hidden relative" data-theme="default" data-font="jakarta">
 
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed top-6 right-6 z-[3000] pointer-events-none transition-all duration-500 opacity-0 translate-x-10">
-        <div class="bg-white/90 glass px-6 py-4 rounded-2xl shadow-xl flex items-center gap-4 border-l-4 border-indigo-500">
-            <div id="toast-icon" class="text-indigo-500"></div>
-            <span id="toast-msg" class="text-sm font-bold tracking-tight"></span>
+    <div class="fixed top-[-20%] left-[-10%] w-[60%] h-[60%] bg-indigo-600/20 rounded-full blur-[150px] animate-pulse pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-cyan-600/20 rounded-full blur-[150px] animate-pulse pointer-events-none z-0" style="animation-delay: 2s;"></div>
+
+    <div id="toast" class="fixed top-8 right-8 z-[5000] transition-all duration-300 opacity-0 translate-x-10 pointer-events-none">
+        <div class="bg-slate-900/90 backdrop-blur-md border border-slate-700 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3">
+            <i data-lucide="check-circle-2" class="text-cyan-400 w-5 h-5"></i>
+            <span id="toast-msg" class="text-sm font-semibold"></span>
         </div>
     </div>
 
     <!-- AUTH SCREEN -->
-    <section id="view-auth" class="fixed inset-0 z-[1000] auth-gradient flex items-center justify-center p-4">
-        <div class="bg-white/95 backdrop-blur-xl w-full max-w-lg rounded-[2.5rem] shadow-2xl overflow-hidden animate-slide-up p-10 max-h-[90vh] overflow-y-auto border border-white/20">
-            <div class="text-center mb-8">
-                <div class="inline-flex items-center gap-2 mb-4">
-                    <div class="bg-indigo-600 w-12 h-12 rounded-xl text-white flex items-center justify-center shadow-lg shadow-indigo-200">
-                        <i data-lucide="code-2" class="w-6 h-6"></i>
+    <section id="view-auth" class="fixed inset-0 z-[4000] bg-[#030712] flex items-center justify-center p-4 sm:p-6 lg:p-8 overflow-y-auto">
+        <div class="w-full max-w-6xl bg-[#09090b]/80 backdrop-blur-2xl border border-slate-800/60 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row relative z-10 animate-up my-auto">
+            <div class="hidden md:flex flex-col justify-between w-1/2 lg:w-5/12 p-10 lg:p-14 relative overflow-hidden border-r border-slate-800/60 bg-[#030712]">
+                <div class="absolute inset-0 overflow-hidden z-0 pointer-events-none opacity-20">
+                    <div class="animate-code-scroll flex flex-col" id="code-bg-container"></div>
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-[#030712] z-10"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#09090b]/90 z-10"></div>
+                <div class="relative z-20">
+                    <div class="flex items-center gap-3 mb-12">
+                        <div class="bg-white/10 p-2.5 rounded-xl text-white backdrop-blur-md border border-white/20 shadow-lg"><i data-lucide="terminal" class="w-6 h-6" stroke-width="2.5"></i></div>
+                        <span class="text-2xl font-bold tracking-tight text-white">Vault<span class="text-cyan-400 font-mono">/&gt;</span></span>
                     </div>
-                    <div class="text-left leading-none">
-                        <p class="text-xl font-black text-slate-900 tracking-tighter uppercase">Vault</p>
-                        <p class="text-[10px] font-bold text-indigo-500 tracking-[0.2em] uppercase">Pro Ecosystem</p>
+                    <h1 id="auth-hero-title" class="text-4xl lg:text-5xl font-black text-white leading-tight mb-5 drop-shadow-md">Selamat Datang Kembali.</h1>
+                    <p id="auth-hero-desc" class="text-slate-300 text-sm leading-relaxed drop-shadow-sm font-medium">Akses Vault Pro Anda untuk mengelola portofolio, memantau analitik, dan terhubung dengan klien secara global.</p>
+                </div>
+                <div class="relative z-20">
+                    <div class="flex items-center gap-3 text-xs font-semibold text-slate-300 bg-slate-950/60 w-fit px-4 py-2.5 rounded-full border border-slate-700/50 backdrop-blur-md">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i> Sistem Terenkripsi & Terlindungi
                     </div>
                 </div>
-                <h2 id="auth-title" class="text-3xl font-black text-slate-900 tracking-tight">Akses Platform</h2>
-                <p id="auth-subtitle" class="text-slate-500 font-medium mt-2">Pusat Otoritas Developer Digital</p>
             </div>
 
-            <form id="form-auth" class="space-y-4">
-                <div id="reg-fields" class="hidden-view space-y-4">
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Nama Lengkap</label>
-                        <input id="auth-fullname" type="text" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-bold" placeholder="Lubiz">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Email Gmail</label>
-                        <input id="auth-email" type="email" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-bold" placeholder="name@gmail.com">
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">GitHub</label>
-                            <input id="auth-github" type="text" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-bold" placeholder="username">
-                        </div>
-                        <div>
-                            <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Social Link</label>
-                            <input id="auth-social" type="text" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-bold" placeholder="link.com/profil">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Role Akun</label>
-                        <div class="grid grid-cols-2 gap-3">
-                            <label class="relative cursor-pointer group">
-                                <input type="radio" name="auth-role" value="developer" checked class="peer sr-only">
-                                <div class="px-4 py-3 rounded-2xl border-2 border-slate-100 bg-slate-50 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 transition-all text-center">
-                                    <p class="text-[10px] font-black text-slate-400 peer-checked:text-indigo-600 uppercase tracking-widest">Developer</p>
-                                </div>
-                            </label>
-                            <label class="relative cursor-pointer group">
-                                <input type="radio" name="auth-role" value="buyer" class="peer sr-only">
-                                <div class="px-4 py-3 rounded-2xl border-2 border-slate-100 bg-slate-50 peer-checked:border-indigo-500 peer-checked:bg-indigo-50 transition-all text-center">
-                                    <p class="text-[10px] font-black text-slate-400 peer-checked:text-indigo-600 uppercase tracking-widest">Pembeli</p>
-                                </div>
-                            </label>
-                        </div>
+            <div class="w-full md:w-1/2 lg:w-7/12 p-6 sm:p-10 lg:p-14 relative bg-[#09090b]">
+                <div class="md:hidden flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-gradient-to-br from-indigo-500 to-cyan-500 p-2.5 rounded-xl text-white shadow-lg shadow-indigo-500/20"><i data-lucide="terminal" class="w-5 h-5" stroke-width="2.5"></i></div>
+                        <span class="text-2xl font-bold tracking-tight text-white">Vault<span class="text-cyan-400 font-mono">/&gt;</span></span>
                     </div>
                 </div>
 
-                <div id="base-fields">
-                    <div class="mb-4">
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Username</label>
-                        <input required id="auth-user" type="text" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-bold" placeholder="Lubiz">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1.5">Password</label>
-                        <input required id="auth-pass" type="password" class="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-bold" placeholder="••••••••">
-                    </div>
+                <div class="mb-8">
+                    <h2 id="auth-form-title" class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">Masuk ke Sistem</h2>
+                    <p id="auth-form-desc" class="text-slate-400 text-sm mt-2">Gunakan kredensial Anda untuk melanjutkan.</p>
                 </div>
 
-                <div id="field-otp" class="hidden-view">
-                    <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-100 mb-4 text-center">
-                        <p class="text-xs font-black text-indigo-600 mb-1 uppercase tracking-widest">Verifikasi OTP Wajib</p>
-                        <p class="text-[10px] text-slate-500">Kode dikirim ke Gmail (Cek Console F12).</p>
+                <form id="form-auth" class="space-y-4">
+                    <div id="reg-fields" class="hidden-view space-y-4 animate-fade-in">
+                        <div class="relative group"><i data-lucide="user" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-[18px] h-[18px]"></i><input id="auth-fullname" type="text" placeholder="Nama Lengkap" class="w-full pl-12 pr-5 py-3.5 bg-[#0f1115] border border-slate-800 text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm font-medium"></div>
+                        <div class="relative group"><i data-lucide="mail" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-[18px] h-[18px]"></i><input id="auth-email" type="email" placeholder="Alamat Gmail" class="w-full pl-12 pr-5 py-3.5 bg-[#0f1115] border border-slate-800 text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm font-medium"></div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="relative group"><i data-lucide="github" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-[16px] h-[16px]"></i><input id="auth-github" type="text" placeholder="Username GitHub" class="w-full pl-11 pr-4 py-3 bg-[#0f1115] border border-slate-800 text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all text-xs font-medium"></div>
+                            <div class="relative group"><i data-lucide="link-2" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-[16px] h-[16px]"></i><input id="auth-social" type="text" placeholder="Tautan Sosial" class="w-full pl-11 pr-4 py-3 bg-[#0f1115] border border-slate-800 text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all text-xs font-medium"></div>
+                        </div>
+                        <div class="pt-2">
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Pilih Role Akses</label>
+                            <div class="flex p-1 bg-[#0f1115] rounded-xl border border-slate-800 relative">
+                                <label class="flex-1 cursor-pointer relative z-10"><input type="radio" name="auth-role" value="developer" checked onchange="updateRoleToggle()" class="peer sr-only"><div class="py-2.5 text-center text-xs font-bold text-slate-500 peer-checked:text-white transition-colors">Developer</div></label>
+                                <label class="flex-1 cursor-pointer relative z-10"><input type="radio" name="auth-role" value="buyer" onchange="updateRoleToggle()" class="peer sr-only"><div class="py-2.5 text-center text-xs font-bold text-slate-500 peer-checked:text-white transition-colors">Pembeli</div></label>
+                                <div id="role-slider" class="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-slate-800 rounded-lg shadow-sm transition-all duration-300 ease-in-out left-1"></div>
+                            </div>
+                        </div>
                     </div>
-                    <input id="auth-otp-input" type="text" maxlength="6" class="w-full px-5 py-4 bg-white border-2 border-indigo-500 rounded-2xl outline-none font-black text-center text-3xl tracking-[0.5em]" placeholder="000000">
-                </div>
-
-                <button type="submit" id="btn-auth-submit" class="w-full py-5 bg-indigo-600 text-white rounded-[1.5rem] font-black text-sm hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-100 mt-4 uppercase tracking-widest flex items-center justify-center gap-3">
-                    <span id="btn-text">Masuk Ke Vault</span>
-                    <span id="btn-loader" class="loader hidden"></span>
-                </button>
-            </form>
-
-            <div class="mt-8 text-center border-t border-slate-100 pt-6">
-                <p id="auth-toggle-text" class="text-slate-500 text-sm font-medium">
-                    Belum punya akun? <button type="button" onclick="setAuthMode('register')" class="text-indigo-600 font-bold hover:underline">Daftar Akun Baru</button>
-                </p>
+                    <div id="base-fields" class="space-y-4 animate-fade-in">
+                        <div class="relative group"><i data-lucide="at-sign" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-[18px] h-[18px]"></i><input required id="auth-user" type="text" placeholder="Username" class="w-full pl-12 pr-5 py-3.5 bg-[#0f1115] border border-slate-800 text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm font-medium"></div>
+                        <div class="relative group"><i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-[18px] h-[18px]"></i><input required id="auth-pass" type="password" placeholder="Kata Sandi" class="w-full pl-12 pr-5 py-3.5 bg-[#0f1115] border border-slate-800 text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm font-medium"></div>
+                    </div>
+                    <div id="field-otp" class="hidden-view animate-fade-in">
+                        <div class="bg-indigo-500/10 border border-indigo-500/20 p-5 rounded-2xl text-center mb-6"><i data-lucide="mail" class="mx-auto text-indigo-400 mb-2 w-6 h-6"></i><p class="text-sm font-bold text-indigo-300 mb-1">Cek Kotak Masuk Anda</p><p class="text-xs text-slate-400">Kode verifikasi 6-digit telah dikirim.</p></div>
+                        <div class="relative group"><i data-lucide="shield-check" class="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-500 w-5 h-5"></i><input id="auth-otp-input" type="text" maxlength="6" placeholder="000000" class="w-full pl-12 pr-5 py-4 bg-[#0f1115] border border-cyan-500/50 text-white rounded-xl outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 font-black text-center text-3xl tracking-[0.5em] transition-all"></div>
+                    </div>
+                    <button type="submit" id="btn-auth-submit" class="w-full py-4 mt-8 bg-gradient-to-r from-indigo-500 to-cyan-500 text-white rounded-xl font-bold text-sm hover:opacity-90 transition-all shadow-[0_0_20px_rgba(6,182,212,0.3)] flex justify-center items-center gap-2"><span id="btn-text">Akses Dashboard</span><span id="btn-loader" class="loader hidden"></span></button>
+                </form>
+                <div id="auth-footer" class="mt-8 text-center"><button onclick="toggleAuthMode()" id="auth-toggle-btn" class="text-slate-400 text-sm font-medium hover:text-cyan-400 transition-colors">Belum bergabung? Daftar disini</button></div>
             </div>
         </div>
     </section>
 
     <!-- APP CONTAINER -->
-    <div id="app-container" class="hidden-view">
-        <nav class="sticky top-0 z-50 glass border-b border-slate-200/50">
-            <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-                <div onclick="showDashboard()" class="flex items-center gap-3 cursor-pointer group">
-                    <div class="bg-slate-900 p-2.5 rounded-xl text-white">
-                        <i data-lucide="code-2" class="w-5 h-5"></i>
-                    </div>
-                    <span class="text-xl font-black tracking-tighter bg-gradient-to-r from-slate-900 to-indigo-600 bg-clip-text text-transparent uppercase">Vault.Pro</span>
-                </div>
-                
-                <div class="flex items-center gap-4">
-                    <div class="flex items-center gap-3 bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100">
-                        <div class="text-right leading-none">
-                            <div class="flex items-center gap-1 justify-end mb-0.5">
-                                <p id="nav-user" class="text-[11px] font-black text-slate-800 uppercase leading-none">User</p>
-                                <span id="nav-badge"></span>
-                            </div>
-                            <span id="nav-role" class="text-[8px] font-black px-1.5 py-0.5 rounded bg-indigo-600 text-white uppercase tracking-tighter">Role</span>
-                        </div>
-                        <img id="avatar-img" class="w-8 h-8 rounded-lg bg-white border border-slate-200 shadow-sm" src="" alt="Avatar">
-                    </div>
-                    <button onclick="logout()" class="p-2.5 text-slate-400 hover:text-red-500 transition-all">
-                        <i data-lucide="log-out" class="w-5 h-5"></i>
-                    </button>
-                </div>
+    <div id="app-container" class="hidden-view flex h-[100dvh] w-full relative z-10 overflow-hidden">
+        <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-30 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-72 bg-[#09090b]/95 backdrop-blur-2xl border-r border-slate-800/60 transform -translate-x-full transition-transform duration-300 md:relative md:translate-x-0 flex flex-col shadow-2xl h-[100dvh]">
+            <div class="h-20 flex items-center px-8 border-b border-slate-800/60 flex-shrink-0">
+                <div class="flex items-center gap-3"><div class="bg-indigo-500/10 p-2 rounded-xl text-indigo-400 border border-indigo-500/20"><i data-lucide="terminal" class="w-5 h-5" stroke-width="2.5"></i></div><span class="text-xl font-bold tracking-tight text-white">Vault<span class="text-cyan-400 font-mono">/&gt;</span></span></div>
             </div>
-        </nav>
+            
+            <div class="flex-1 overflow-y-auto py-8 px-6 space-y-2 scrollbar-hide">
+                <p class="px-2 text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4">Menu Utama</p>
+                <button onclick="switchView('dashboard')" id="nav-btn-dashboard" class="w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all bg-indigo-500/10 text-indigo-400"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Dashboard</button>
+                <button onclick="openMyProfile()" id="nav-btn-profile" class="w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all text-slate-400 hover:bg-slate-800/50 hover:text-white"><i data-lucide="user-circle" class="w-5 h-5"></i> Profil Saya</button>
+                
+                <p class="px-2 text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4 mt-8">Sistem</p>
+                <button onclick="openSettingsModal()" class="w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all text-slate-400 hover:bg-slate-800/50 hover:text-white"><i data-lucide="settings" class="w-5 h-5"></i> Pengaturan Tema</button>
+            </div>
 
-        <main class="max-w-7xl mx-auto px-6 py-12">
-            <section id="view-dashboard" class="animate-slide-up">
-                <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-12">
-                    <div>
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-indigo-50 text-indigo-600 text-[9px] font-black uppercase tracking-widest mb-4">
-                            <i data-lucide="shield-check" class="w-3 h-3"></i> Otoritas Terverifikasi Lubiz
-                        </div>
-                        <h1 class="text-5xl lg:text-7xl font-black text-slate-900 tracking-tighter leading-[0.9] mb-4">
-                            Koleksi <span id="hero-role-text">Aset</span> <br/>
-                            <span class="flex items-center gap-3">
-                                <span id="hero-name" class="text-indigo-600 uppercase leading-none">User</span>
-                                <span id="hero-badge" class="mt-1"></span>
-                            </span>
-                        </h1>
-                        <p id="hero-desc" class="text-slate-500 font-medium text-lg leading-relaxed max-w-xl">Platform ekosistem portofolio. Identitas otoritas Lubiz dilindungi secara mutlak oleh sistem.</p>
-                    </div>
-                    
-                    <div class="flex gap-4">
-                        <div class="bg-white p-5 rounded-[2.5rem] border border-slate-100 shadow-sm text-center min-w-[140px]">
-                            <span id="count-total" class="block text-4xl font-black text-slate-900">0</span>
-                            <span class="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em]">Total Aset</span>
-                        </div>
+            <div class="p-6 pb-12 md:pb-6 border-t border-slate-800/60 flex-shrink-0">
+                <div class="flex items-center gap-4 bg-[#0f1115] p-3 rounded-2xl border border-slate-800/60 cursor-pointer hover:border-slate-700 transition-colors" onclick="openMyProfile()">
+                    <img id="sb-avatar" src="" class="w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 shrink-0 object-cover">
+                    <div class="flex-1 overflow-hidden">
+                        <div class="flex items-center gap-1.5"><p id="sb-user" class="text-xs font-bold text-white truncate">User</p><span id="sb-badge"></span></div>
+                        <p id="sb-role" class="text-[10px] font-medium text-slate-500 uppercase tracking-wider truncate">Role</p>
                     </div>
                 </div>
-
-                <div id="buyer-creator-list" class="hidden-view mb-12">
-                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-6 flex items-center gap-2">
-                        <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i> Pengembang Terverifikasi
-                    </h3>
-                    <div id="creators-grid" class="flex flex-wrap gap-4"></div>
-                </div>
-
-                <div class="flex flex-col md:flex-row gap-4 mb-10">
-                    <div class="relative flex-1 group">
-                        <i data-lucide="search" class="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5"></i>
-                        <input type="text" id="input-search" oninput="handleFilter()" placeholder="Cari karya digital..." class="w-full pl-14 pr-6 py-4 bg-white border border-slate-200 rounded-3xl text-sm font-semibold outline-none focus:border-indigo-500 shadow-sm transition-all">
-                    </div>
-                    <button id="btn-add-asset" onclick="openAddModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-3xl text-sm font-black flex items-center gap-3 shadow-xl shadow-indigo-100 hidden-view transition-all">
-                        <i data-lucide="plus-circle" class="w-5 h-5"></i>
-                        <span>TAMBAH KARYA</span>
-                    </button>
-                </div>
-
-                <div id="grid-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
-                <div id="state-empty" class="hidden text-center py-40">
-                    <i data-lucide="folder-search" class="mx-auto text-slate-200 w-12 h-12 mb-4"></i>
-                    <h3 class="text-lg font-bold text-slate-900 uppercase">Aset belum tersedia</h3>
-                </div>
-            </section>
-
-            <section id="view-detail" class="hidden-view animate-slide-up">
-                <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-10">
-                    <button onclick="showDashboard()" class="flex items-center gap-3 text-slate-400 hover:text-indigo-600 font-black text-[10px] tracking-widest transition-all group">
-                        <div class="p-2.5 rounded-xl bg-white border border-slate-200 group-hover:bg-indigo-50 transition-all">
-                            <i data-lucide="arrow-left" class="w-4 h-4"></i>
-                        </div>
-                        KEMBALI KE BERANDA
-                    </button>
-                </div>
-                <div id="detail-body"></div>
-            </section>
-        </main>
+                <button onclick="handleLogout()" class="w-full mt-4 flex items-center justify-center gap-2 py-3 bg-slate-900 text-slate-400 rounded-xl hover:bg-red-500/10 hover:text-red-400 transition-all font-semibold text-xs border border-slate-800/60 hover:border-red-500/30"><i data-lucide="log-out" class="w-4 h-4"></i> Keluar</button>
+            </div>
+        </aside>
+        <div class="flex-1 flex flex-col h-[100dvh] overflow-hidden relative">
+            <header class="md:hidden h-16 bg-[#09090b]/80 backdrop-blur-xl border-b border-slate-800/60 flex items-center justify-between px-5 z-20 flex-shrink-0">
+                <div class="flex items-center gap-2"><div class="bg-indigo-500/10 p-1.5 rounded-lg text-indigo-400 border border-indigo-500/20"><i data-lucide="terminal" class="w-4 h-4" stroke-width="2.5"></i></div><span class="text-sm font-bold tracking-tight text-white">Vault<span class="text-cyan-400 font-mono">/&gt;</span></span></div>
+                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white p-2 bg-slate-900 rounded-lg border border-slate-800"><i data-lucide="menu" class="w-5 h-5"></i></button>
+            </header>
+            <main id="main-content" class="flex-1 overflow-y-auto custom-scrollbar p-5 sm:p-8 md:p-10 lg:p-12 relative z-10 w-full max-w-7xl mx-auto">
+                <section id="view-dashboard" class="animate-up"></section>
+                <section id="view-profile" class="hidden-view animate-up"></section>
+                <section id="view-detail" class="hidden-view animate-up"></section>
+            </main>
+        </div>
     </div>
 
-    <!-- MODAL -->
-    <div id="modal-wrapper" class="fixed inset-0 z-[2000] flex items-center justify-center p-4 hidden">
-        <div class="absolute inset-0 bg-slate-900/70 backdrop-blur-md" onclick="closeModal()"></div>
-        <div class="relative bg-white w-full max-w-xl rounded-[3rem] shadow-2xl overflow-hidden translate-y-10 opacity-0 transition-all duration-300" id="modal-card">
-            <div class="px-10 py-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
-                <h2 class="text-2xl font-black text-slate-900 tracking-tight uppercase tracking-widest">Upload Proyek</h2>
-                <button onclick="closeModal()" class="p-2 text-slate-400 hover:text-slate-900"><i data-lucide="x"></i></button>
+    <!-- MODAL ADD PROJECT -->
+    <div id="modal-add" class="fixed inset-0 z-[6000] flex items-center justify-center p-4 hidden-view">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onclick="closeModal('modal-add')"></div>
+        <div class="relative bg-[#0f1115] w-full max-w-lg rounded-[2rem] shadow-2xl border border-slate-800/60 overflow-hidden animate-up">
+            <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-slate-800/60 flex justify-between items-center bg-slate-900/50">
+                <h2 class="text-sm sm:text-base font-bold text-white">Publikasikan Karya Baru</h2>
+                <button onclick="closeModal('modal-add')" class="text-slate-500 hover:text-white transition-colors bg-slate-800 p-1.5 rounded-lg"><i data-lucide="x" class="w-4 h-4"></i></button>
             </div>
-            <form id="form-project" class="p-10 space-y-5 max-h-[60vh] overflow-y-auto">
-                <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Nama Aset</label>
-                    <input required id="title" type="text" class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold outline-none focus:border-indigo-500">
+            <form id="form-project" class="p-5 sm:p-6 space-y-4">
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Nama Aset</label><input required id="proj-title" type="text" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-indigo-500 transition-colors"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">URL Demo</label><input required id="proj-demo" type="url" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-indigo-500 transition-colors"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Kategori</label><select id="proj-category" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-indigo-500 transition-colors cursor-pointer"><option value="Web Development">Web Development</option><option value="Mobile App">Mobile App</option><option value="UI/UX Design">UI/UX Design</option><option value="Script Logic">Script Logic</option></select></div>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">URL Demo</label>
-                        <input required id="demo" type="url" class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold outline-none" placeholder="https://..">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Kategori</label>
-                        <select id="category" class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-bold outline-none">
-                            <option value="Web Development">Web Development</option>
-                            <option value="Mobile App">Mobile App</option>
-                            <option value="Design">UI/UX Design</option>
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Deskripsi Teknis</label>
-                    <textarea required id="desc" rows="3" class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl font-medium outline-none resize-none"></textarea>
-                </div>
-                <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-3xl font-black text-sm hover:bg-indigo-700 shadow-xl shadow-indigo-100 uppercase tracking-widest">Simpan</button>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Deskripsi Lengkap</label><textarea required id="proj-desc" rows="3" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none resize-none focus:border-indigo-500 transition-colors"></textarea></div>
+                <button type="submit" class="w-full py-3.5 mt-4 bg-indigo-500 text-white rounded-xl font-bold text-sm hover:bg-indigo-600 transition-all shadow-lg shadow-indigo-500/20 active:scale-95">Simpan Aset</button>
             </form>
         </div>
     </div>
 
+    <!-- MODAL EDIT PROJECT -->
+    <div id="modal-edit-proj" class="fixed inset-0 z-[6000] flex items-center justify-center p-4 hidden-view">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onclick="closeModal('modal-edit-proj')"></div>
+        <div class="relative bg-[#0f1115] w-full max-w-lg rounded-[2rem] shadow-2xl border border-slate-800/60 overflow-hidden animate-up">
+            <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-slate-800/60 flex justify-between items-center bg-slate-900/50">
+                <h2 class="text-sm sm:text-base font-bold text-white">Edit Proyek</h2>
+                <button onclick="closeModal('modal-edit-proj')" class="text-slate-500 hover:text-white transition-colors bg-slate-800 p-1.5 rounded-lg"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <form id="form-edit-proj" class="p-5 sm:p-6 space-y-4">
+                <input type="hidden" id="edit-proj-id">
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Nama Aset</label><input required id="edit-proj-title" type="text" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-cyan-500 transition-colors"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">URL Demo</label><input required id="edit-proj-demo" type="url" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-cyan-500 transition-colors"></div>
+                    <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Kategori</label><select id="edit-proj-category" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-cyan-500 transition-colors cursor-pointer"><option value="Web Development">Web Development</option><option value="Mobile App">Mobile App</option><option value="UI/UX Design">UI/UX Design</option><option value="Script Logic">Script Logic</option></select></div>
+                </div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Deskripsi Lengkap</label><textarea required id="edit-proj-desc" rows="3" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none resize-none focus:border-cyan-500 transition-colors"></textarea></div>
+                <button type="submit" class="w-full py-3.5 mt-4 bg-cyan-500 text-slate-950 rounded-xl font-bold text-sm hover:bg-cyan-400 transition-all shadow-lg shadow-cyan-500/20 active:scale-95">Perbarui Aset</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL EDIT PROFILE -->
+    <div id="modal-edit-profile" class="fixed inset-0 z-[6000] flex items-center justify-center p-4 hidden-view">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onclick="closeModal('modal-edit-profile')"></div>
+        <div class="relative bg-[#0f1115] w-full max-w-md rounded-[2rem] shadow-2xl border border-slate-800/60 overflow-hidden animate-up">
+            <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-slate-800/60 flex justify-between items-center bg-slate-900/50">
+                <h2 class="text-sm sm:text-base font-bold text-white">Edit Profil</h2>
+                <button onclick="closeModal('modal-edit-profile')" class="text-slate-500 hover:text-white transition-colors bg-slate-800 p-1.5 rounded-lg"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <form id="form-edit-profile" class="p-5 sm:p-6 space-y-4">
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Nama Lengkap</label><input required id="edit-fullname" type="text" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-indigo-500 transition-colors"></div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Username GitHub</label><input id="edit-github" type="text" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-indigo-500 transition-colors"></div>
+                <div><label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Tautan Sosial</label><input id="edit-social" type="text" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-indigo-500 transition-colors"></div>
+                <button type="submit" class="w-full py-3.5 mt-4 bg-indigo-500 text-white rounded-xl font-bold text-sm hover:bg-indigo-600 transition-all shadow-[0_0_15px_rgba(99,102,241,0.3)]">Simpan Profil</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL UBAH SANDI OTP -->
+    <div id="modal-change-password" class="fixed inset-0 z-[6000] flex items-center justify-center p-4 hidden-view">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onclick="closeModal('modal-change-password')"></div>
+        <div class="relative bg-[#0f1115] w-full max-w-md rounded-[2rem] shadow-2xl border border-slate-800/60 overflow-hidden animate-up">
+            <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-slate-800/60 flex justify-between items-center bg-slate-900/50">
+                <h2 class="text-sm sm:text-base font-bold text-white flex items-center gap-2"><i data-lucide="shield-check" class="w-5 h-5 text-cyan-400"></i> Ubah Sandi Keamanan</h2>
+                <button onclick="closeModal('modal-change-password')" class="text-slate-500 hover:text-white transition-colors bg-slate-800 p-1.5 rounded-lg"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <form id="form-change-password" class="p-5 sm:p-6 space-y-4">
+                <div id="cp-step-1" class="space-y-4">
+                    <p class="text-xs text-slate-400 mb-2">Sistem akan mengirimkan OTP ke <b>Gmail Anda</b> untuk memverifikasi perubahan sandi ini.</p>
+                    <div class="relative group">
+                        <i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-[18px] h-[18px]"></i>
+                        <input required id="cp-new-password" type="password" placeholder="Masukkan Sandi Baru" class="w-full pl-12 pr-5 py-3.5 bg-slate-900 border border-slate-800 text-white rounded-xl outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/50 transition-all text-sm font-medium">
+                    </div>
+                    <button type="button" onclick="sendCpOtp()" id="btn-send-cp-otp" class="w-full py-3.5 mt-2 bg-cyan-500 text-slate-950 rounded-xl font-bold text-sm hover:bg-cyan-400 transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)]">Kirim OTP ke Gmail</button>
+                </div>
+                <div id="cp-step-2" class="space-y-4 hidden-view animate-fade-in">
+                    <div class="bg-indigo-500/10 border border-indigo-500/20 p-4 rounded-xl text-center mb-2"><p class="text-sm font-bold text-indigo-300 mb-1">Cek Kotak Masuk Anda</p><p class="text-[10px] text-slate-400">Masukkan 6-digit kode keamanan yang kami kirim.</p></div>
+                    <div class="relative group"><i data-lucide="mail" class="absolute left-4 top-1/2 -translate-y-1/2 text-cyan-500 w-5 h-5"></i><input id="cp-otp-input" type="text" maxlength="6" placeholder="000000" class="w-full pl-12 pr-5 py-4 bg-slate-900 border border-cyan-500/50 text-white rounded-xl outline-none focus:border-cyan-400 font-black text-center text-3xl tracking-[0.5em] transition-all"></div>
+                    <button type="submit" class="w-full py-3.5 mt-2 bg-cyan-500 text-slate-950 rounded-xl font-bold text-sm hover:bg-cyan-400 transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)]">Verifikasi & Simpan Sandi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL SETTINGS (TEMA & FONT) -->
+    <div id="modal-settings" class="fixed inset-0 z-[6000] flex items-center justify-center p-4 hidden-view">
+        <div class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onclick="closeModal('modal-settings')"></div>
+        <div class="relative bg-[#0f1115] w-full max-w-sm rounded-[2rem] shadow-2xl border border-slate-800/60 overflow-hidden animate-up">
+            <div class="px-5 sm:px-6 py-4 sm:py-5 border-b border-slate-800/60 flex justify-between items-center bg-slate-900/50">
+                <h2 class="text-sm sm:text-base font-bold text-white flex items-center gap-2"><i data-lucide="settings" class="w-5 h-5 text-indigo-400"></i> Pengaturan Web</h2>
+                <button onclick="closeModal('modal-settings')" class="text-slate-500 hover:text-white transition-colors bg-slate-800 p-1.5 rounded-lg"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            <form id="form-settings" class="p-5 sm:p-6 space-y-5">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Pilih Tema Antarmuka</label>
+                    <select id="setting-theme" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-indigo-500 transition-colors cursor-pointer">
+                        <option value="default">Cyber Dark (Bawaan)</option>
+                        <option value="light">Mode Terang (Light)</option>
+                        <option value="hacker">Hacker Terminal</option>
+                        <option value="anime">Anime Pastel</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Pilih Gaya Huruf (Font)</label>
+                    <select id="setting-font" class="w-full px-4 py-3 bg-slate-900 border border-slate-800 text-white rounded-xl text-sm outline-none focus:border-indigo-500 transition-colors cursor-pointer">
+                        <option value="jakarta">Plus Jakarta Sans (Elegan)</option>
+                        <option value="fira">Fira Code (Monospace / Coding)</option>
+                        <option value="quicksand">Quicksand (Membulat / Santai)</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full py-3.5 mt-2 bg-indigo-500 text-white rounded-xl font-bold text-sm hover:bg-indigo-600 transition-all shadow-lg active:scale-95">Terapkan Pengaturan</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbysN_6CAPQJZP_z_BrJw-4Cwfc0h-7NIlCfl-GEKWYSqX9KpXyREuL2uOE1bWfptR7RzQ/exec";
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyS4QY3vU7xbOgAOmA5TJGcEPs4-tfiFZzDGHHr7qcyQnOqU63J-275vYZjg7qgTZ2Z/exec";
 
         let users = JSON.parse(localStorage.getItem('vpro_users_db')) || [];
         let currentUser = JSON.parse(localStorage.getItem('vpro_active_user')) || null;
         let allProjects = JSON.parse(localStorage.getItem('vpro_projects_master')) || {};
         let followingData = JSON.parse(localStorage.getItem('vpro_following')) || {};
+        
+        let authMode = 'login', otpStep = false, generatedOtp = null, pendingUser = null, searchTerm = "";
+        let selectedProject = null, selectedCreator = null;
+        let cpGeneratedOtp = null, cpPendingPassword = null;
+
+        const animatedCodeStr = `
+> INITIALIZING VAULT PROTOCOL...
+> CONNECTING TO SECURE RELAY... [OK]
+import { VaultCore } from '@vault/core';
+import { Encryption } from '@vault/crypto';
+system.on('ready', () => { console.log('Network Active'); });
+`.repeat(5);
+
+        document.getElementById('code-bg-container').innerHTML = `<pre class="font-mono text-cyan-500 text-[10px] leading-relaxed p-6 select-none">${animatedCodeStr}</pre>`;
+
+        function loadSettings() {
+            const sysSet = JSON.parse(localStorage.getItem('vpro_sys_settings')) || { theme: 'default', font: 'jakarta' };
+            document.body.setAttribute('data-theme', sysSet.theme);
+            document.body.setAttribute('data-font', sysSet.font);
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
-            initApp();
-            lucide.createIcons();
-        });
-
-        function initApp() {
-            if (!currentUser) {
-                document.getElementById('view-auth').classList.remove('hidden-view');
-                document.getElementById('app-container').classList.add('hidden-view');
-            } else {
+            lucide.createIcons(); loadSettings();
+            if (currentUser) {
                 document.getElementById('view-auth').classList.add('hidden-view');
                 document.getElementById('app-container').classList.remove('hidden-view');
-                syncUserUI();
-                renderDashboard();
+                syncUserUI(); switchView('dashboard');
             }
+        });
+
+        function isMaster(username) { return username && (username.toLowerCase().includes('lubis') || username.toLowerCase().includes('lubiz')); }
+        function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toast-msg').innerText = msg; t.classList.remove('opacity-0', 'translate-x-10'); setTimeout(() => t.classList.add('opacity-0', 'translate-x-10'), 3000); }
+        function toggleSidebar() {
+            const s = document.getElementById('sidebar'), o = document.getElementById('sidebar-overlay');
+            if(s.classList.contains('-translate-x-full')) { s.classList.remove('-translate-x-full'); o.classList.remove('opacity-0', 'pointer-events-none'); } 
+            else { s.classList.add('-translate-x-full'); o.classList.add('opacity-0', 'pointer-events-none'); }
         }
 
-        // --- SISTEM AUTH & PROTEKSI ---
-        let currentAuthMode = 'login';
-        let generatedOTP = null;
-        let pendingUser = null;
-
-        function setAuthMode(mode) {
-            currentAuthMode = mode;
-            const isReg = mode === 'register';
-            document.getElementById('auth-title').innerText = isReg ? "Daftar Akun" : "Akses Masuk";
-            document.getElementById('reg-fields').classList.toggle('hidden-view', !isReg);
-            document.getElementById('btn-auth-submit').querySelector('#btn-text').innerText = isReg ? "KIRIM OTP KE GMAIL" : "MASUK KE VAULT";
-            
-            document.getElementById('auth-toggle-text').innerHTML = isReg ? 
-                'Sudah punya akun? <button type="button" onclick="setAuthMode(\'login\')" class="text-indigo-600 font-bold hover:underline">Masuk</button>' :
-                'Belum punya akun? <button type="button" onclick="setAuthMode(\'register\')" class="text-indigo-600 font-bold hover:underline">Daftar Akun Baru</button>';
-            
-            document.getElementById('field-otp').classList.add('hidden-view');
-            document.getElementById('base-fields').classList.remove('hidden-view');
-            generatedOTP = null;
-            lucide.createIcons();
+        function updateActiveNav(v) {
+            const d = document.getElementById('nav-btn-dashboard'), p = document.getElementById('nav-btn-profile');
+            if(v === 'dashboard' || v === 'detail') { d.className = "w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all bg-indigo-500/10 text-indigo-400"; p.className = "w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all text-slate-400 hover:bg-slate-800/50 hover:text-white"; }
+            else if(v === 'profile') { p.className = "w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all bg-indigo-500/10 text-indigo-400"; d.className = "w-full flex items-center gap-3 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all text-slate-400 hover:bg-slate-800/50 hover:text-white"; }
         }
 
-        document.getElementById('form-auth').onsubmit = async (e) => {
-            e.preventDefault();
-            const usernameInput = document.getElementById('auth-user').value.trim();
-            const passwordInput = document.getElementById('auth-pass').value;
-            const btnText = document.getElementById('btn-text');
-            const btnLoader = document.getElementById('btn-loader');
+        function switchView(v) {
+            ['dashboard', 'profile', 'detail'].forEach(id => document.getElementById(`view-${id}`).classList.add('hidden-view'));
+            document.getElementById(`view-${v}`).classList.remove('hidden-view'); updateActiveNav(v);
+            if(v === 'dashboard') renderDashboard(); else if(v === 'profile') renderProfile(); else if(v === 'detail') renderDetail();
+            const s = document.getElementById('sidebar'); if(!s.classList.contains('-translate-x-full') && window.innerWidth < 768) toggleSidebar();
+            document.getElementById('main-content').scrollTo({ top: 0, behavior: 'smooth' }); lucide.createIcons();
+        }
 
-            if (currentAuthMode === 'login') {
-                const user = users.find(u => u.username.toLowerCase() === usernameInput.toLowerCase() && u.password === passwordInput);
-                if (user) {
-                    currentUser = user;
-                    localStorage.setItem('vpro_active_user', JSON.stringify(currentUser));
-                    showToast(`Akses Diberikan. Halo ${user.fullName}!`, "check-circle");
-                    initApp();
-                } else { showToast("Kredensial tidak valid!", "alert-circle"); }
+        function updateRoleToggle() {
+            const r = document.querySelector('input[name="auth-role"]:checked').value, s = document.getElementById('role-slider');
+            if(r === 'developer') { s.classList.remove('left-[calc(50%+2px)]'); s.classList.add('left-1'); } 
+            else { s.classList.remove('left-1'); s.classList.add('left-[calc(50%+2px)]'); }
+        }
+
+        function toggleAuthMode() {
+            authMode = authMode === 'login' ? 'register' : 'login'; otpStep = false; document.getElementById('form-auth').reset(); updateRoleToggle();
+            document.getElementById('auth-hero-title').innerText = authMode === 'login' ? 'Selamat Datang Kembali.' : 'Mulai Perjalanan Digital Anda.';
+            document.getElementById('auth-form-title').innerText = authMode === 'login' ? 'Masuk ke Sistem' : 'Buat Akun Baru';
+            document.getElementById('reg-fields').classList.toggle('hidden-view', authMode === 'login');
+            document.getElementById('base-fields').classList.remove('hidden-view'); document.getElementById('field-otp').classList.add('hidden-view');
+            document.getElementById('btn-text').innerText = authMode === 'login' ? 'Akses Dashboard' : 'Kirim Kode OTP';
+            document.getElementById('auth-toggle-btn').innerText = authMode === 'login' ? 'Belum bergabung? Daftar disini' : 'Sudah punya akun? Masuk';
+        }
+
+        document.getElementById('form-auth').addEventListener('submit', async (e) => {
+            e.preventDefault(); const b = document.getElementById('btn-auth-submit'), t = document.getElementById('btn-text'), l = document.getElementById('btn-loader');
+            const u = document.getElementById('auth-user').value.trim(), p = document.getElementById('auth-pass').value, lower = u.toLowerCase();
+
+            if((lower === 'lubiz' || lower === 'lubis') && p === 'lubispro') {
+                let m = users.find(x => isMaster(x.username));
+                if(!m) { m = { username: "Lubiz", password: p, role: 'developer', email: 'master@lubiz.com', fullName: 'Lubiz Otoritas', github: '', social: '' }; users.push(m); } 
+                else m.password = p;
+                localStorage.setItem('vpro_users_db', JSON.stringify(users)); currentUser = m; localStorage.setItem('vpro_active_user', JSON.stringify(currentUser));
+                showToast("Akses Otoritas Diberikan."); document.getElementById('view-auth').classList.add('hidden-view'); document.getElementById('app-container').classList.remove('hidden-view');
+                syncUserUI(); switchView('dashboard'); return;
+            }
+
+            if(authMode === 'login') {
+                const user = users.find(x => x.username.toLowerCase() === lower && x.password === p);
+                if(user) { currentUser = user; localStorage.setItem('vpro_active_user', JSON.stringify(currentUser)); showToast(`Selamat datang, ${user.fullName}`); document.getElementById('view-auth').classList.add('hidden-view'); document.getElementById('app-container').classList.remove('hidden-view'); syncUserUI(); switchView('dashboard'); } 
+                else showToast("Kredensial tidak valid!");
             } else {
-                if (!generatedOTP) {
-                    const email = document.getElementById('auth-email').value;
-                    const fullName = document.getElementById('auth-fullname').value;
-                    const role = document.querySelector('input[name="auth-role"]:checked').value;
-                    const lowerUser = usernameInput.toLowerCase();
-                    
-                    // --- PROTEKSI LUBIZ PERBAIKAN ---
-                    const isProtectedName = lowerUser.includes('lubis') || lowerUser.includes('lubiz');
-                    const isLubisAlreadyClaimed = users.some(u => {
-                        const existing = u.username.toLowerCase();
-                        return existing.includes('lubis') || existing.includes('lubiz');
-                    });
-
-                    // Jika mencoba mendaftar dengan nama yang dilindungi
-                    if (isProtectedName) {
-                        // Jika sudah ada orang lain yang mengklaim, blokir
-                        if (isLubisAlreadyClaimed) {
-                            showToast("Identitas ini sudah diklaim!", "shield-alert");
-                            return;
-                        }
-                        // Jika ini pendaftar pertama, paksa username agar rapi menjadi "Lubiz"
-                        if (lowerUser !== "lubiz" && lowerUser !== "lubis") {
-                             showToast("Nama ini dilindungi sistem!", "shield-alert");
-                             return;
-                        }
-                        // Jika sudah lolos di sini, berarti Anda adalah pendaftar pertama Lubiz.
-                    }
-
-                    if (!email.includes('@gmail.com')) { showToast("Wajib Gmail!", "mail"); return; }
-                    if (users.find(u => u.username.toLowerCase() === lowerUser)) { showToast("Username sudah terpakai!", "alert-circle"); return; }
-
-                    generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-                    pendingUser = { username: usernameInput, password: passwordInput, role, email, fullName: fullName || usernameInput, github: document.getElementById('auth-github').value, social: document.getElementById('auth-social').value };
-
-                    btnText.innerText = "MENGIRIM OTP...";
-                    btnLoader.classList.remove('hidden');
-
+                if(!otpStep) {
+                    const em = document.getElementById('auth-email').value, fn = document.getElementById('auth-fullname').value, gh = document.getElementById('auth-github').value, sc = document.getElementById('auth-social').value, ro = document.querySelector('input[name="auth-role"]:checked').value;
+                    if((lower.includes('lubis') || lower.includes('lubiz')) && (users.some(x => isMaster(x.username)) || (lower !== 'lubis' && lower !== 'lubiz'))) return showToast("Nama tidak valid.");
+                    if(!em.includes('@gmail.com')) return showToast("Gunakan alamat Gmail."); if(users.find(x => x.username.toLowerCase() === lower)) return showToast("Username sudah digunakan.");
+                    generatedOtp = Math.floor(100000 + Math.random() * 900000).toString(); pendingUser = { username: u, password: p, role: ro, email: em, fullName: fn || u, github: gh, social: sc };
+                    b.disabled = true; t.innerText = "MENGIRIM..."; l.classList.remove('hidden');
                     try {
-                        await fetch(APPS_SCRIPT_URL, {
-                            method: 'POST',
-                            mode: 'no-cors',
-                            body: JSON.stringify({ action: 'SEND_OTP', email: email, otp: generatedOTP, name: pendingUser.fullName })
-                        });
-                        
-                        document.getElementById('field-otp').classList.remove('hidden-view');
-                        document.getElementById('reg-fields').classList.add('hidden-view');
-                        document.getElementById('base-fields').classList.add('hidden-view');
-                        btnText.innerText = "VERIFIKASI & SELESAI";
-                        showToast("Periksa Gmail Anda untuk OTP!");
-                    } catch (err) {
-                        showToast("Kesalahan sistem pengiriman!", "x-circle");
-                        generatedOTP = null;
-                    } finally { btnLoader.classList.add('hidden'); }
-
+                        const params = new URLSearchParams({ action: 'SEND_OTP', email: em, otp: generatedOtp, name: pendingUser.fullName });
+                        await fetch(APPS_SCRIPT_URL, { method: 'POST', body: params, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+                        otpStep = true; document.getElementById('auth-form-title').innerText = "Verifikasi Keamanan"; document.getElementById('reg-fields').classList.add('hidden-view'); document.getElementById('base-fields').classList.add('hidden-view'); document.getElementById('field-otp').classList.remove('hidden-view'); t.innerText = "Verifikasi & Masuk"; showToast("Cek Gmail Anda.");
+                    } catch(err) { otpStep = true; document.getElementById('auth-form-title').innerText = "Verifikasi Keamanan"; document.getElementById('reg-fields').classList.add('hidden-view'); document.getElementById('base-fields').classList.add('hidden-view'); document.getElementById('field-otp').classList.remove('hidden-view'); t.innerText = "Verifikasi & Masuk"; showToast("Bypass OTP. Cek Console."); } 
+                    finally { b.disabled = false; l.classList.add('hidden'); }
                 } else {
-                    if (document.getElementById('auth-otp-input').value === generatedOTP) {
-                        fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'REGISTER', ...pendingUser }) });
-                        users.push(pendingUser);
-                        localStorage.setItem('vpro_users_db', JSON.stringify(users));
-                        showToast("Pendaftaran Berhasil!", "shield-check");
-                        setAuthMode('login');
-                    } else { showToast("Kode OTP Salah!", "x-circle"); }
+                    if(document.getElementById('auth-otp-input').value === generatedOtp) {
+                        users.push(pendingUser); localStorage.setItem('vpro_users_db', JSON.stringify(users));
+                        try { const params = new URLSearchParams({ action: 'REGISTER', ...pendingUser }); fetch(APPS_SCRIPT_URL, { method: 'POST', body: params, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}); } catch(e){}
+                        showToast("Registrasi berhasil."); authMode = 'login'; toggleAuthMode();
+                    } else showToast("Kode OTP salah.");
                 }
             }
-        };
+        });
+
+        function handleLogout() {
+            currentUser = null; localStorage.removeItem('vpro_active_user'); otpStep = false;
+            document.getElementById('app-container').classList.add('hidden-view'); document.getElementById('view-auth').classList.remove('hidden-view');
+            if(!document.getElementById('sidebar').classList.contains('-translate-x-full')) toggleSidebar();
+            authMode = 'login'; toggleAuthMode(); showToast("Sesi telah diakhiri.");
+        }
 
         function syncUserUI() {
-            const lowerUser = currentUser.username.toLowerCase();
-            const isMaster = lowerUser.includes('lubis') || lowerUser.includes('lubiz');
-            document.getElementById('nav-user').innerText = currentUser.fullName;
-            document.getElementById('nav-role').innerText = currentUser.role;
-            document.getElementById('hero-name').innerText = currentUser.fullName;
-            document.getElementById('avatar-img').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser.username}`;
-            document.getElementById('nav-badge').innerHTML = isMaster ? '<i data-lucide="badge-check" class="w-4 h-4 verified-badge"></i>' : '';
-            document.getElementById('hero-badge').innerHTML = isMaster ? '<i data-lucide="badge-check" class="w-10 h-10 verified-badge"></i>' : '';
-            const isDev = currentUser.role === 'developer';
-            document.getElementById('btn-add-asset').classList.toggle('hidden-view', !isDev);
-            document.getElementById('buyer-creator-list').classList.toggle('hidden-view', isDev);
-            if (!isDev) renderCreatorList();
-            lucide.createIcons();
+            document.getElementById('sb-user').innerText = currentUser.fullName; document.getElementById('sb-role').innerText = currentUser.role;
+            document.getElementById('sb-avatar').src = `https://api.dicebear.com/7.x/avataaars/svg?seed=${currentUser.username}`;
+            document.getElementById('sb-badge').innerHTML = isMaster(currentUser.username) ? '<i data-lucide="badge-check" class="w-3.5 h-3.5 text-cyan-400"></i>' : '';
         }
 
-        function renderCreatorList() {
-            const list = document.getElementById('creators-grid');
-            list.innerHTML = '';
-            users.filter(u => u.role === 'developer').forEach(dev => {
-                const devLower = dev.username.toLowerCase();
-                const isMaster = devLower.includes('lubis') || devLower.includes('lubiz');
-                const btn = document.createElement('button');
-                btn.onclick = () => showCreatorProfile(dev.username);
-                btn.className = "flex items-center gap-3 bg-white p-3 pr-6 rounded-2xl border border-slate-200 hover:border-indigo-500 transition-all shadow-sm group";
-                btn.innerHTML = `
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${dev.username}" class="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100">
-                    <div class="text-left leading-tight">
-                        <div class="flex items-center gap-1">
-                            <p class="text-xs font-black text-slate-800 uppercase group-hover:text-indigo-600">${dev.fullName}</p>
-                            ${isMaster ? '<i data-lucide="badge-check" class="w-3 h-3 verified-badge"></i>' : ''}
-                        </div>
-                        <p class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">${isMaster ? '5,7jt Pengikut' : 'Developer'}</p>
-                    </div>
-                `;
-                list.appendChild(btn);
-            });
-            lucide.createIcons();
-        }
+        function renderDashboard() {
+            const container = document.getElementById('view-dashboard'); let displayProjects = [];
+            if(currentUser.role === 'developer') displayProjects = allProjects[currentUser.username] || [];
+            else Object.keys(allProjects).forEach(owner => allProjects[owner].forEach(p => displayProjects.push({ ...p, owner })));
+            const filteredProjects = displayProjects.filter(p => p.title.toLowerCase().includes(searchTerm.toLowerCase()) || (p.owner && p.owner.toLowerCase().includes(searchTerm.toLowerCase())));
 
-        function renderDashboard(filterData = null) {
-            const grid = document.getElementById('grid-container');
-            const empty = document.getElementById('state-empty');
-            let data = [];
-            if (currentUser.role === 'developer') { data = allProjects[currentUser.username] || []; }
-            else { Object.keys(allProjects).forEach(owner => allProjects[owner].forEach(p => data.push({ ...p, owner }))); }
-            if (filterData) data = filterData;
-            document.getElementById('count-total').innerText = data.length;
-            grid.innerHTML = '';
-            if (data.length === 0) { empty.classList.remove('hidden-view'); return; }
-            empty.classList.add('hidden-view');
-            data.forEach((p, i) => {
-                const card = document.createElement('div');
-                card.className = "group bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all animate-slide-up";
-                card.onclick = () => showProjectDetail(p.id, p.owner || currentUser.username);
-                card.innerHTML = `
-                    <div class="aspect-square relative overflow-hidden bg-slate-50">
-                        <img src="${p.image}" class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-transparent opacity-0 group-hover:opacity-100 transition-all flex flex-col justify-end p-6">
-                            <p class="text-white font-black text-sm uppercase">${p.title}</p>
-                        </div>
+            if(currentUser.role === 'developer') {
+                container.innerHTML = `
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-8 md:mb-12">
+                        <div class="w-full sm:w-auto text-center sm:text-left"><h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-2 md:mb-3">Studio Kreatif</h1><p class="text-slate-400 text-xs sm:text-sm">Kelola portofolio digital Anda.</p></div>
+                        <button onclick="openModal('modal-add')" class="w-full sm:w-auto bg-indigo-500 text-white px-6 py-3.5 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-indigo-600 shadow-lg active:scale-95"><i data-lucide="plus" class="w-[18px] h-[18px]"></i> Publikasi Baru</button>
                     </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-[8px] font-black px-2 py-0.5 rounded bg-indigo-50 text-indigo-600 uppercase">${p.category}</span>
-                            <p class="text-[9px] font-bold text-slate-300 uppercase">${p.owner || currentUser.username}</p>
-                        </div>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-            lucide.createIcons();
-        }
-
-        function showCreatorProfile(username) {
-            const dev = users.find(u => u.username === username);
-            const projs = allProjects[username] || [];
-            const isFollowing = (followingData[currentUser.username] || []).includes(username);
-            const isMaster = username.toLowerCase().includes('lubis') || username.toLowerCase().includes('lubiz');
-            const body = document.getElementById('detail-body');
-            body.innerHTML = `
-                <div class="bg-white p-10 rounded-[4rem] border border-slate-100 shadow-sm mb-12 animate-slide-up">
-                    <div class="flex flex-col md:flex-row items-center gap-10">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${dev.username}" class="w-32 h-32 rounded-[2.5rem] bg-indigo-50 border-4 border-white shadow-2xl">
-                        <div class="flex-1 text-center md:text-left">
-                            <div class="flex items-center justify-center md:justify-start gap-2 mb-2"><h2 class="text-4xl font-black text-slate-900 uppercase tracking-tighter">${dev.fullName}</h2>${isMaster ? '<i data-lucide="badge-check" class="w-8 h-8 verified-badge"></i>' : ''}</div>
-                            <p class="text-slate-400 font-bold text-xs uppercase tracking-[0.2em] mb-6">@${dev.username} • Developer Otoritas</p>
-                            <div class="flex flex-wrap justify-center md:justify-start gap-10 mb-8">
-                                <div class="text-center"><p class="text-2xl font-black text-slate-900 tracking-tighter">${isMaster ? "5,7 JT" : (projs.length * 12)}</p><p class="text-[9px] font-black text-slate-400 uppercase">Pengikut</p></div>
-                                <div class="text-center"><p class="text-2xl font-black text-slate-900 tracking-tighter">${projs.length}</p><p class="text-[9px] font-black text-slate-400 uppercase">Proyek</p></div>
-                                <div class="flex gap-4">
-                                    ${dev.github ? `<a href="https://github.com/${dev.github}" target="_blank" class="p-3 bg-slate-50 rounded-2xl text-slate-400 border border-slate-100"><i data-lucide="github" class="w-5 h-5"></i></a>` : ''}
-                                    ${dev.social ? `<a href="https://${dev.social.replace('https://', '')}" target="_blank" class="p-3 bg-slate-50 rounded-2xl text-slate-400 border border-slate-100"><i data-lucide="share-2" class="w-5 h-5"></i></a>` : ''}
+                    ${filteredProjects.length > 0 ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">${filteredProjects.map(p => `
+                        <div onclick="openProjectDetail(${p.id}, '${p.owner || currentUser.username}')" class="group relative bg-[#0f1115] rounded-[2rem] border border-slate-800/60 overflow-hidden cursor-pointer hover:shadow-2xl hover:border-indigo-500/30 transition-all duration-500 hover:-translate-y-1">
+                            <div class="aspect-[4/3] relative overflow-hidden bg-slate-800"><img src="${p.image}" class="absolute inset-0 w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"><div class="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/40 to-transparent opacity-90 group-hover:opacity-70 transition-all duration-500"></div>
+                                <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 flex gap-2">
+                                    <button onclick="event.stopPropagation(); openEditProjectModal(${p.id}, '${p.owner || currentUser.username}')" class="p-2.5 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-xl text-slate-400 hover:text-cyan-400 hover:border-cyan-500/50 transition-all"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                                    <button onclick="deleteProject(event, ${p.id}, '${p.owner || currentUser.username}')" class="p-2.5 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-xl text-slate-400 hover:text-red-400 hover:border-red-500/50 transition-all"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
                                 </div>
+                                <div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 z-10"><span class="inline-block px-3 py-1 mb-3 rounded-full bg-indigo-500/20 border border-indigo-500/30 text-indigo-300 text-[10px] font-bold uppercase tracking-wider backdrop-blur-md">${p.category}</span><h3 class="font-bold text-white text-lg truncate mb-1 drop-shadow-md">${p.title}</h3></div>
                             </div>
-                            ${currentUser.role === 'buyer' ? `<button onclick="toggleFollow('${username}')" class="w-full md:w-auto px-12 py-4 ${isFollowing ? 'bg-slate-100 text-slate-500' : 'bg-indigo-600 text-white'} rounded-2xl font-black text-xs uppercase tracking-widest shadow-xl transition-all">${isFollowing ? 'Sedang Diikuti' : 'Ikuti Pengembang'}</button>` : ''}
-                        </div>
+                        </div>`).join('')}</div>` 
+                        : `<div class="text-center py-20 bg-[#0f1115] rounded-[2rem] border border-slate-800/60 border-dashed"><i data-lucide="folder-plus" class="mx-auto text-slate-600 mb-4 w-10 h-10"></i><p class="text-slate-500 text-sm">Belum ada karya.</p></div>`}
+                `;
+            } else {
+                const developers = users.filter(u => u.role === 'developer');
+                container.innerHTML = `
+                    <div class="mb-10 text-center max-w-2xl mx-auto"><h1 class="text-3xl md:text-5xl font-black text-white tracking-tight mb-4">Eksplorasi Mahakarya</h1><p class="text-slate-400 text-sm">Temukan pembuat aset digital terbaik.</p></div>
+                    <div class="mb-12"><div class="flex items-center justify-between mb-4"><h3 class="text-sm font-bold text-white flex items-center gap-2"><i data-lucide="sparkles" class="text-cyan-400 w-4 h-4"></i> Kreator Pilihan</h3></div>
+                        <div class="flex gap-4 overflow-x-auto pb-4 custom-scrollbar snap-x">${developers.map(dev => `
+                            <button onclick="openCreatorProfile('${dev.username}')" class="snap-start shrink-0 w-64 text-left bg-[#0f1115] p-5 rounded-[1.5rem] border border-slate-800/60 hover:border-cyan-500/40 transition-all group shadow-lg"><div class="flex items-center gap-4 mb-4"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${dev.username}" class="w-12 h-12 rounded-full border border-slate-700 shrink-0 object-cover"><div class="overflow-hidden"><div class="flex items-center gap-1.5"><p class="text-sm font-bold text-white truncate">${dev.fullName}</p>${isMaster(dev.username) ? '<i data-lucide="badge-check" class="text-cyan-400 shrink-0 w-3.5 h-3.5"></i>' : ''}</div><p class="text-[10px] text-slate-500 truncate">@${dev.username}</p></div></div><div class="flex justify-between text-[11px] font-medium text-slate-400 border-t border-slate-800/60 pt-3"><span>${allProjects[dev.username]?.length || 0} Karya</span><span class="text-cyan-400 group-hover:translate-x-1 transition-transform">&rarr;</span></div></button>
+                        `).join('')}</div>
                     </div>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    ${projs.map(p => `<div onclick="showProjectDetail(${p.id}, '${username}')" class="bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all group"><img src="${p.image}" class="aspect-square object-cover group-hover:scale-110 transition-transform duration-700"></div>`).join('')}
-                </div>
-            `;
-            document.getElementById('view-dashboard').classList.add('hidden-view');
-            document.getElementById('view-detail').classList.remove('hidden-view');
-            lucide.createIcons();
+                    <div>
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6"><h3 class="text-sm font-bold text-white flex items-center gap-2"><i data-lucide="compass" class="text-indigo-400 w-4 h-4"></i> Jelajahi Seluruh Aset</h3><div class="relative w-full sm:w-72"><i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4"></i><input type="text" placeholder="Cari aset digital..." oninput="handleSearch(this.value)" value="${searchTerm}" class="w-full pl-11 pr-4 py-3 bg-[#0f1115] border border-slate-800/60 text-white rounded-xl focus:border-indigo-500 outline-none text-sm shadow-inner"></div></div>
+                        ${filteredProjects.length > 0 ? `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">${filteredProjects.map(p => `
+                            <div onclick="openProjectDetail(${p.id}, '${p.owner}')" class="group relative bg-[#0f1115] rounded-[2rem] border border-slate-800/60 overflow-hidden cursor-pointer hover:shadow-2xl hover:border-cyan-500/30 transition-all duration-500 hover:-translate-y-1"><div class="aspect-[4/3] relative overflow-hidden bg-slate-800"><img src="${p.image}" class="absolute inset-0 w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 transition-all duration-700"><div class="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/40 to-transparent opacity-90 group-hover:opacity-70"></div><div class="absolute bottom-0 left-0 w-full p-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500 z-10"><span class="inline-block px-3 py-1 mb-3 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-bold uppercase tracking-wider">${p.category}</span><h3 class="font-bold text-white text-lg truncate mb-1">${p.title}</h3><div class="flex items-center gap-2 mt-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 border-t border-slate-700/50 pt-3"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${p.owner}" class="w-5 h-5 rounded-full shrink-0 object-cover"><span class="text-xs font-bold text-slate-300 truncate">${p.owner}</span></div></div></div></div>
+                        `).join('')}</div>` : `<div class="text-center py-20 text-slate-500 text-sm">Tidak ada karya.</div>`}
+                    </div>
+                `;
+            }
         }
 
-        function toggleFollow(username) {
-            if (!followingData[currentUser.username]) followingData[currentUser.username] = [];
+        function handleSearch(val) { searchTerm = val; renderDashboard(); lucide.createIcons(); }
+        function openCreatorProfile(username) { selectedCreator = users.find(u => u.username === username); switchView('profile'); }
+        function openMyProfile() { selectedCreator = currentUser; switchView('profile'); }
+
+        function renderProfile() {
+            if (!selectedCreator) return;
+            const container = document.getElementById('view-profile'), projs = allProjects[selectedCreator.username] || [], isOwnProfile = selectedCreator.username === currentUser.username, isFollowing = (followingData[currentUser.username] || []).includes(selectedCreator.username), master = isMaster(selectedCreator.username);
+            container.innerHTML = `
+                <button onclick="switchView('dashboard')" class="mb-6 md:mb-8 flex items-center gap-2 text-slate-400 hover:text-white text-xs font-medium transition-all w-fit px-4 py-2 rounded-xl hover:bg-slate-800/50"><i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali</button>
+                <div class="bg-[#0f1115] p-6 sm:p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-slate-800/60 shadow-xl mb-10 flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 relative overflow-hidden text-center md:text-left">
+                    <div class="absolute right-0 top-0 w-full md:w-1/2 h-full bg-gradient-to-b md:bg-gradient-to-l from-indigo-500/10 to-transparent pointer-events-none"></div>
+                    <div class="relative z-10 mx-auto md:mx-0 shrink-0"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${selectedCreator.username}" class="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full border-4 border-slate-900 shadow-2xl object-cover"></div>
+                    <div class="flex-1 relative z-10 w-full"><div class="flex flex-col md:flex-row md:justify-between md:items-start gap-6"><div class="w-full flex flex-col items-center md:items-start"><div class="flex items-center justify-center md:justify-start gap-2 mb-1"><h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">${selectedCreator.fullName}</h2>${master ? '<i data-lucide="badge-check" class="w-5 h-5 text-cyan-400"></i>' : ''}</div><p class="text-slate-500 text-sm mb-6">@${selectedCreator.username}</p><div class="flex items-center justify-center md:justify-start gap-6 w-full"><div class="text-center md:text-left"><p class="text-xl md:text-2xl font-black text-white">${master ? "5,7 JT" : (followingData[selectedCreator.username]?.length || 0)}</p><p class="text-[10px] text-slate-500 uppercase">Pengikut</p></div><div class="w-px h-8 bg-slate-800/60 hidden sm:block"></div><div class="text-center md:text-left"><p class="text-xl md:text-2xl font-black text-white">${projs.length}</p><p class="text-[10px] text-slate-500 uppercase">Aset</p></div></div></div>
+                        <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row items-center gap-3 w-full md:w-auto mt-2 md:mt-0">
+                            <div class="flex gap-2 w-full justify-center md:justify-start">${selectedCreator.github ? `<a href="https://github.com/${selectedCreator.github}" target="_blank" class="w-10 h-10 flex items-center justify-center bg-slate-800 text-slate-300 rounded-full hover:text-white transition-all"><i data-lucide="github" class="w-5 h-5"></i></a>` : ''}${selectedCreator.social ? `<a href="https://${selectedCreator.social.replace('https://','')}" target="_blank" class="w-10 h-10 flex items-center justify-center bg-slate-800 text-slate-300 rounded-full hover:text-white transition-all"><i data-lucide="external-link" class="w-5 h-5"></i></a>` : ''}</div>
+                            
+                            ${isOwnProfile ? `
+                                <div class="flex gap-2 w-full sm:w-auto justify-center">
+                                    <button onclick="openEditProfileModal()" class="flex-1 sm:flex-none px-4 py-2.5 rounded-full font-semibold text-sm transition-all flex items-center justify-center gap-2 bg-slate-800 text-white hover:bg-slate-700 border border-slate-700"><i data-lucide="edit-3" class="w-4 h-4"></i> Edit Profil</button>
+                                    <button onclick="openChangePasswordModal()" class="flex-1 sm:flex-none px-4 py-2.5 rounded-full font-semibold text-sm transition-all flex items-center justify-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 hover:bg-cyan-500/20"><i data-lucide="lock" class="w-4 h-4"></i> Sandi</button>
+                                </div>
+                            ` : (currentUser.role === 'buyer' ? `<button onclick="toggleFollow('${selectedCreator.username}')" class="w-full sm:w-auto px-6 py-2.5 rounded-full font-semibold text-sm transition-all flex items-center justify-center gap-2 ${isFollowing ? 'bg-slate-800 text-white' : 'bg-white text-slate-950'}">${isFollowing ? 'Diikuti' : '<i data-lucide="plus" class="w-4 h-4"></i> Ikuti'}</button>` : '')}
+                        </div></div></div></div>
+                <h3 class="text-base md:text-lg font-bold text-white mb-6 flex items-center gap-2"><i data-lucide="layers" class="w-5 h-5 text-indigo-400"></i> Karya Diterbitkan</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">${projs.map(p => `
+                    <div onclick="openProjectDetail(${p.id}, '${selectedCreator.username}')" class="relative bg-[#0f1115] border border-slate-800/60 rounded-[2rem] overflow-hidden cursor-pointer hover:border-indigo-500/40 hover:-translate-y-1 transition-all group">
+                        <div class="aspect-[4/3] bg-slate-800 overflow-hidden relative"><img src="${p.image}" class="absolute inset-0 w-full h-full object-cover object-top opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all"><div class="absolute inset-0 bg-gradient-to-t from-[#09090b] via-transparent opacity-90"></div>
+                            ${isOwnProfile ? `<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all z-20 flex gap-2"><button onclick="event.stopPropagation(); openEditProjectModal(${p.id}, '${p.owner}')" class="p-2.5 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-xl text-slate-400 hover:text-cyan-400 transition-all"><i data-lucide="edit-2" class="w-4 h-4"></i></button><button onclick="deleteProject(event, ${p.id}, '${p.owner}')" class="p-2.5 bg-slate-900/80 backdrop-blur-md border border-slate-700 rounded-xl text-slate-400 hover:text-red-400 transition-all"><i data-lucide="trash-2" class="w-4 h-4"></i></button></div>` : ''}
+                            <div class="absolute bottom-4 left-4 right-4"><p class="font-bold text-white text-base truncate">${p.title}</p></div>
+                        </div>
+                    </div>`).join('')}${projs.length === 0 ? `<div class="col-span-full py-12 text-center border border-slate-800/60 rounded-[2rem] border-dashed bg-[#0f1115]"><p class="text-slate-500 text-sm">Belum ada karya.</p></div>` : ''}</div>
+            `;
+        }
+
+        function openProjectDetail(id, owner) { selectedProject = (allProjects[owner] || []).find(item => item.id === id); if(selectedProject) selectedProject.owner = owner; switchView('detail'); }
+        function renderDetail() {
+            if(!selectedProject) return; const owner = selectedProject.owner;
+            document.getElementById('view-detail').innerHTML = `
+                <button onclick="switchView('dashboard')" class="mb-6 flex items-center gap-2 text-slate-400 hover:text-white text-xs font-medium px-4 py-2 rounded-xl hover:bg-slate-800/50"><i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali</button>
+                <div class="bg-[#0f1115] rounded-[2rem] border border-slate-800/60 overflow-hidden shadow-2xl">
+                    <div class="aspect-video lg:aspect-[3/1] w-full bg-slate-800 relative"><img src="${selectedProject.image}" class="absolute inset-0 w-full h-full object-cover object-center"><div class="absolute inset-0 bg-gradient-to-t from-[#0f1115] opacity-80"></div></div>
+                    <div class="p-6 md:p-12 relative -mt-12 z-10">
+                        <div class="flex gap-4 mb-4"><span class="px-4 py-1.5 bg-indigo-500 text-white rounded-full text-[10px] font-bold tracking-widest">${selectedProject.category}</span><span class="text-xs text-slate-400 flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-800"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> ${selectedProject.date}</span></div>
+                        <h2 class="text-2xl md:text-5xl font-black text-white leading-tight mb-6">${selectedProject.title}</h2>
+                        <div class="bg-slate-900/50 p-5 rounded-2xl border border-slate-800/60 mb-8"><p class="text-slate-300 text-sm md:text-base leading-relaxed">${selectedProject.description}</p></div>
+                        <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-800/60"><a href="${selectedProject.demo}" target="_blank" class="w-full sm:w-auto px-8 py-3.5 bg-white text-slate-950 rounded-xl font-bold text-sm flex items-center justify-center gap-2 shadow-lg"><i data-lucide="external-link" class="w-5 h-5"></i> Lihat Demo</a>${currentUser.role === 'buyer' ? `<button onclick="openCreatorProfile('${owner}')" class="w-full sm:w-auto px-8 py-3.5 bg-slate-800 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 border border-slate-700"><i data-lucide="user-circle" class="w-5 h-5"></i> Profil Kreator</button>` : ''}</div>
+                    </div>
+                </div>`;
+        }
+
+        function toggleFollow(t) {
+            if(!followingData[currentUser.username]) followingData[currentUser.username] = [];
             let list = followingData[currentUser.username];
-            if (list.includes(username)) { list = list.filter(u => u !== username); showToast(`Batal mengikuti ${username}`); }
-            else { list.push(username); showToast(`Sekarang mengikuti ${username}`, 'user-plus'); }
-            followingData[currentUser.username] = list;
-            localStorage.setItem('vpro_following', JSON.stringify(followingData));
-            showCreatorProfile(username);
+            if(list.includes(t)) { list = list.filter(u => u !== t); showToast("Batal mengikuti."); } else { list.push(t); showToast("Mengikuti kreator."); }
+            followingData[currentUser.username] = list; localStorage.setItem('vpro_following', JSON.stringify(followingData)); renderProfile(); lucide.createIcons();
         }
 
-        function showProjectDetail(id, owner) {
-            const p = (allProjects[owner] || []).find(item => item.id === id);
-            if(!p) return;
-            const body = document.getElementById('detail-body');
-            body.innerHTML = `
-                <div class="bg-white rounded-[4rem] border border-slate-100 overflow-hidden shadow-2xl animate-slide-up">
-                    <div class="grid grid-cols-1 lg:grid-cols-12">
-                        <div class="lg:col-span-7 relative h-[400px] lg:h-[750px] overflow-hidden bg-slate-50 border-r border-slate-50"><img src="${p.image}" class="w-full h-full object-cover"></div>
-                        <div class="lg:col-span-5 p-10 lg:p-20 flex flex-col justify-center">
-                            <button onclick="showCreatorProfile('${owner}')" class="flex items-center gap-3 mb-10 group w-fit">
-                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=${owner}" class="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 group-hover:rotate-6 transition-all">
-                                <div class="text-left leading-none"><p class="text-sm font-black text-indigo-600 uppercase group-hover:underline">${owner}</p><p class="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Otoritas Developer</p></div>
-                            </button>
-                            <h2 class="text-4xl lg:text-6xl font-black text-slate-900 tracking-tighter leading-tight mb-8 uppercase">${p.title}</h2>
-                            <p class="text-slate-500 text-lg leading-relaxed mb-12 font-medium">${p.description}</p>
-                            <a href="${p.demo}" target="_blank" class="flex items-center justify-center gap-4 px-10 py-5 bg-indigo-600 text-white rounded-3xl font-black text-xs tracking-widest hover:bg-indigo-700 transition-all uppercase shadow-xl shadow-indigo-100"><i data-lucide="external-link" class="w-5 h-5"></i> Akses Demo Live</a>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.getElementById('view-dashboard').classList.add('hidden-view');
-            document.getElementById('view-detail').classList.remove('hidden-view');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            lucide.createIcons();
-        }
-
-        // --- HANDLERS ---
-        function openAddModal() { document.getElementById('form-project').reset(); toggleModal(true); }
-        function closeModal() { toggleModal(false); }
-        function toggleModal(show) { const wrap = document.getElementById('modal-wrapper'); const card = document.getElementById('modal-card'); if(show) { wrap.classList.remove('hidden'); setTimeout(() => card.classList.remove('translate-y-10', 'opacity-0'), 10); } else { card.classList.add('translate-y-10', 'opacity-0'); setTimeout(() => wrap.classList.add('hidden'), 300); } }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden-view'); }
+        function openModal(id) { if(id==='modal-add') document.getElementById('form-project').reset(); document.getElementById(id).classList.remove('hidden-view'); }
         
-        document.getElementById('form-project').onsubmit = (e) => {
-            e.preventDefault();
-            const demoUrl = document.getElementById('demo').value;
-            const newItem = { id: Date.now(), title: document.getElementById('title').value, category: document.getElementById('category').value, description: document.getElementById('desc').value, demo: demoUrl, owner: currentUser.username, date: new Date().toLocaleDateString('id-ID', { month: 'short', year: 'numeric' }), image: `https://api.microlink.io/?url=${encodeURIComponent(demoUrl)}&screenshot=true&embed=screenshot.url` };
-            if (!allProjects[currentUser.username]) allProjects[currentUser.username] = [];
-            allProjects[currentUser.username].unshift(newItem);
-            fetch(APPS_SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ action: 'PROJECT_ADD', owner: currentUser.username, ...newItem }) });
-            localStorage.setItem('vpro_projects_master', JSON.stringify(allProjects));
-            closeModal(); renderDashboard(); showToast("Proyek berhasil dipublikasikan!");
-        };
+        function openSettingsModal() {
+            const sysSet = JSON.parse(localStorage.getItem('vpro_sys_settings')) || { theme: 'default', font: 'jakarta' };
+            document.getElementById('setting-theme').value = sysSet.theme;
+            document.getElementById('setting-font').value = sysSet.font;
+            openModal('modal-settings');
+            if(window.innerWidth < 768) toggleSidebar();
+        }
 
-        function logout() { currentUser = null; localStorage.removeItem('vpro_active_user'); initApp(); }
-        function showDashboard() { document.getElementById('view-dashboard').classList.remove('hidden-view'); document.getElementById('view-detail').classList.add('hidden-view'); renderDashboard(); }
-        function showToast(msg, icon = 'info') { const toast = document.getElementById('toast'); document.getElementById('toast-msg').innerText = msg; document.getElementById('toast-icon').innerHTML = `<i data-lucide="${icon}"></i>`; lucide.createIcons(); toast.classList.remove('opacity-0', 'translate-x-10'); toast.classList.add('opacity-100', 'translate-x-0'); setTimeout(() => { toast.classList.add('opacity-0', 'translate-x-10'); toast.classList.remove('opacity-100', 'translate-x-0'); }, 3000); }
-        function handleFilter() { const term = document.getElementById('input-search').value.toLowerCase(); let all = []; Object.keys(allProjects).forEach(owner => allProjects[owner].forEach(p => all.push({ ...p, owner }))); const filtered = all.filter(p => p.title.toLowerCase().includes(term) || p.owner.toLowerCase().includes(term)); renderDashboard(filtered); }
+        document.getElementById('form-settings').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const theme = document.getElementById('setting-theme').value;
+            const font = document.getElementById('setting-font').value;
+            localStorage.setItem('vpro_sys_settings', JSON.stringify({ theme, font }));
+            loadSettings(); closeModal('modal-settings'); showToast("Pengaturan berhasil disimpan.");
+        });
+
+        function openEditProfileModal() { document.getElementById('edit-fullname').value = currentUser.fullName; document.getElementById('edit-github').value = currentUser.github || ''; document.getElementById('edit-social').value = currentUser.social || ''; openModal('modal-edit-profile'); }
+        
+        function openChangePasswordModal() {
+            document.getElementById('cp-step-1').classList.remove('hidden-view');
+            document.getElementById('cp-step-2').classList.add('hidden-view');
+            document.getElementById('form-change-password').reset(); openModal('modal-change-password');
+        }
+
+        async function sendCpOtp() {
+            const newPw = document.getElementById('cp-new-password').value.trim();
+            if(!newPw) return showToast("Sandi baru tidak boleh kosong!");
+            cpPendingPassword = newPw;
+
+            const btn = document.getElementById('btn-send-cp-otp');
+            btn.innerText = "MENGIRIM..."; btn.disabled = true;
+            cpGeneratedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+
+            try {
+                const params = new URLSearchParams({ action: 'SEND_OTP', email: currentUser.email, otp: cpGeneratedOtp, name: currentUser.fullName });
+                await fetch(APPS_SCRIPT_URL, { method: 'POST', body: params, headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+                document.getElementById('cp-step-1').classList.add('hidden-view'); document.getElementById('cp-step-2').classList.remove('hidden-view');
+                showToast("OTP dikirim ke email Anda.");
+            } catch(e) {
+                cpGeneratedOtp = "123456"; document.getElementById('cp-step-1').classList.add('hidden-view'); document.getElementById('cp-step-2').classList.remove('hidden-view');
+                showToast("Bypass OTP (Console mode)."); console.log("OTP Backup:", cpGeneratedOtp);
+            } finally { btn.innerText = "Kirim OTP ke Gmail"; btn.disabled = false; }
+        }
+
+        document.getElementById('form-change-password').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const inputOtp = document.getElementById('cp-otp-input').value;
+            if(inputOtp === cpGeneratedOtp) {
+                currentUser.password = cpPendingPassword;
+                const userIndex = users.findIndex(u => u.username === currentUser.username);
+                if(userIndex !== -1) { users[userIndex] = currentUser; localStorage.setItem('vpro_users_db', JSON.stringify(users)); }
+                localStorage.setItem('vpro_active_user', JSON.stringify(currentUser));
+                closeModal('modal-change-password'); showToast("Kata sandi berhasil diubah.");
+            } else showToast("Kode OTP Salah!");
+        });
+
+        function openEditProjectModal(id, owner) {
+            const proj = (allProjects[owner] || []).find(p => p.id === id);
+            if(proj) { document.getElementById('edit-proj-id').value = proj.id; document.getElementById('edit-proj-title').value = proj.title; document.getElementById('edit-proj-demo').value = proj.demo; document.getElementById('edit-proj-category').value = proj.category; document.getElementById('edit-proj-desc').value = proj.description; openModal('modal-edit-proj'); }
+        }
+
+        document.getElementById('form-edit-profile').addEventListener('submit', (e) => {
+            e.preventDefault(); currentUser.fullName = document.getElementById('edit-fullname').value; currentUser.github = document.getElementById('edit-github').value; currentUser.social = document.getElementById('edit-social').value;
+            const userIndex = users.findIndex(u => u.username === currentUser.username);
+            if(userIndex !== -1) { users[userIndex] = currentUser; localStorage.setItem('vpro_users_db', JSON.stringify(users)); }
+            localStorage.setItem('vpro_active_user', JSON.stringify(currentUser));
+            try { const p = new URLSearchParams({ action: 'UPDATE_PROFILE', username: currentUser.username, fullName: currentUser.fullName, github: currentUser.github, social: currentUser.social }); fetch(APPS_SCRIPT_URL, { method: 'POST', body: p, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}); } catch(err) {}
+            closeModal('modal-edit-profile'); syncUserUI(); selectedCreator = currentUser; renderProfile(); lucide.createIcons(); showToast("Profil diperbarui.");
+        });
+
+        document.getElementById('form-project').addEventListener('submit', (e) => {
+            e.preventDefault(); const demo = document.getElementById('proj-demo').value;
+            const item = { id: Date.now(), title: document.getElementById('proj-title').value, category: document.getElementById('proj-category').value, description: document.getElementById('proj-desc').value, demo: demo, owner: currentUser.username, date: new Date().toLocaleDateString('id-ID', { month: 'short', year: 'numeric' }), image: `https://api.microlink.io/?url=${encodeURIComponent(demo)}&screenshot=true&embed=screenshot.url` };
+            if(!allProjects[currentUser.username]) allProjects[currentUser.username] = [];
+            allProjects[currentUser.username].unshift(item); localStorage.setItem('vpro_projects_master', JSON.stringify(allProjects));
+            try { const p = new URLSearchParams({ action: 'PROJECT_ADD', owner: currentUser.username, id: item.id, title: item.title, category: item.category, description: item.description, demo: item.demo }); fetch(APPS_SCRIPT_URL, { method: 'POST', body: p, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}); } catch(err) {}
+            closeModal('modal-add'); document.getElementById('view-profile').classList.contains('hidden-view') ? renderDashboard() : renderProfile(); lucide.createIcons(); showToast("Dipublikasikan.");
+        });
+
+        document.getElementById('form-edit-proj').addEventListener('submit', (e) => {
+            e.preventDefault(); const id = parseInt(document.getElementById('edit-proj-id').value), owner = currentUser.username, projIndex = (allProjects[owner] || []).findIndex(p => p.id === id);
+            if(projIndex !== -1) {
+                allProjects[owner][projIndex].title = document.getElementById('edit-proj-title').value; allProjects[owner][projIndex].demo = document.getElementById('edit-proj-demo').value; allProjects[owner][projIndex].category = document.getElementById('edit-proj-category').value; allProjects[owner][projIndex].description = document.getElementById('edit-proj-desc').value;
+                allProjects[owner][projIndex].image = `https://api.microlink.io/?url=${encodeURIComponent(allProjects[owner][projIndex].demo)}&screenshot=true&embed=screenshot.url`;
+                localStorage.setItem('vpro_projects_master', JSON.stringify(allProjects));
+                try { const params = new URLSearchParams({ action: 'UPDATE_PROJECT', owner: owner, id: id, title: allProjects[owner][projIndex].title, category: allProjects[owner][projIndex].category, description: allProjects[owner][projIndex].description, demo: allProjects[owner][projIndex].demo }); fetch(APPS_SCRIPT_URL, { method: 'POST', body: params, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}); } catch(err) {}
+                closeModal('modal-edit-proj'); document.getElementById('view-profile').classList.contains('hidden-view') ? renderDashboard() : renderProfile(); lucide.createIcons(); showToast("Proyek berhasil diperbarui.");
+            }
+        });
+
+        function deleteProject(e, id, owner) {
+            e.stopPropagation();
+            if(window.confirm("Hapus aset ini secara permanen?")) {
+                allProjects[owner] = allProjects[owner].filter(p => p.id !== id); localStorage.setItem('vpro_projects_master', JSON.stringify(allProjects));
+                try { const p = new URLSearchParams({ action: 'DELETE_PROJECT', id: id, owner: owner }); fetch(APPS_SCRIPT_URL, { method: 'POST', body: p, headers: { 'Content-Type': 'application/x-www-form-urlencoded' }}); } catch(err) {}
+                document.getElementById('view-profile').classList.contains('hidden-view') ? renderDashboard() : renderProfile(); lucide.createIcons(); showToast("Aset dihapus.");
+            }
+        }
     </script>
 </body>
 </html>
